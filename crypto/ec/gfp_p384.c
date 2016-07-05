@@ -485,3 +485,6 @@ static void gfp_p384_point_select_w5(P384_POINT *out,
   memcpy(out->Y, y, sizeof(y));
   memcpy(out->Z, z, sizeof(z));
 }
+
+
+#include "ecp_nistz384.inl"
