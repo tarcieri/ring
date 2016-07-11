@@ -222,7 +222,7 @@ pub struct PrivateKeyOps {
     pub common: &'static CommonOps,
     elem_inv: unsafe extern fn(r: *mut Limb/*[num_limbs]*/,
                                a: *const Limb/*[num_limbs]*/),
-    point_mul_base_impl: fn(a: &Scalar) -> Result<Point, ()>,
+    point_mul_base_impl: fn(a: &Scalar) -> Point,
     point_mul_impl: unsafe extern fn(r: *mut Limb/*[3][num_limbs]*/,
                                      p_scalar: *const Limb/*[num_limbs]*/,
                                      p_x: *const Limb/*[num_limbs]*/,
@@ -231,7 +231,7 @@ pub struct PrivateKeyOps {
 
 impl PrivateKeyOps {
     #[inline(always)]
-    pub fn point_mul_base(&self, a: &Scalar) -> Result<Point, ()> {
+    pub fn point_mul_base(&self, a: &Scalar) -> Point {
         (self.point_mul_base_impl)(a)
     }
 
