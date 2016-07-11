@@ -109,6 +109,10 @@ static inline void elem_mul_mont(Elem r, const Elem a, const Elem b) {
   bn_mul_mont(r, a, b, Q, Q_N0, P384_LIMBS);
 }
 
+static inline void elem_mul_by_2(Elem r, const Elem a) {
+  elem_add(r, a, a);
+}
+
 static inline void elem_sqr_mont(Elem r, const Elem a) {
   /* XXX: Inefficient. TODO: Add dedicated squaring routine. */
   elem_mul_mont(r, a, a);
