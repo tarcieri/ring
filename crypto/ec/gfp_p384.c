@@ -76,6 +76,15 @@ OPENSSL_COMPILE_ASSERT(sizeof(size_t) == sizeof(BN_ULONG),
 #endif
 
 
+static INLINE_IF_POSSIBLE GFp_Limb is_equal(const Elem a, const Elem b) {
+  GFp_Limb eq = constant_time_is_zero_size_t(0);
+  for (size_t i = 1; i < P384_LIMBS; ++i) {
+    eq =
+      constant_time_select_size_t(eq, constant_time_eq_size_t(a[i], b[i]), 0);
+  }
+  return eq;
+}
+
 static INLINE_IF_POSSIBLE void copy_conditional(Elem r, const Elem a,
                                                 const GFp_Limb condition) {
   for (size_t i = 0; i < P384_LIMBS; ++i) {
