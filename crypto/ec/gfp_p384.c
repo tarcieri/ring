@@ -468,9 +468,9 @@ void GFp_p384_scalar_mul_mont(ScalarMont r, const ScalarMont a,
 
 static void gfp_p384_point_select_w5(P384_POINT *out,
                                      const P384_POINT table[16], size_t index) {
-  Elem x; memset(x, 0, sizeof(x));
-  Elem y; memset(y, 0, sizeof(y));
-  Elem z; memset(z, 0, sizeof(z));
+  alignas(64) Elem x; memset(x, 0, sizeof(x));
+  alignas(64) Elem y; memset(y, 0, sizeof(y));
+  alignas(64) Elem z; memset(z, 0, sizeof(z));
 
   for (size_t i = 0; i < 16; ++i) {
     GFp_Limb mask = constant_time_eq_size_t(index, i + 1);
@@ -488,3 +488,4 @@ static void gfp_p384_point_select_w5(P384_POINT *out,
 
 
 #include "ecp_nistz384.inl"
+#include "ecp_nistz384_mul.inl"
