@@ -223,8 +223,10 @@ pub struct PrivateKeyOps {
     elem_inv: unsafe extern fn(r: *mut Limb/*[num_limbs]*/,
                                a: *const Limb/*[num_limbs]*/),
     point_mul_base_impl: fn(a: &Scalar) -> Result<Point, ()>,
-    point_mul_impl: fn(s: &Scalar, point_x_y: &(Elem, Elem))
-                       -> Result<Point, ()>,
+    point_mul_impl: unsafe extern fn(r: *mut Limb/*[3][num_limbs]*/,
+                                     p_scalar: *const Limb/*[num_limbs]*/,
+                                     p_x: *const Limb/*[num_limbs]*/,
+                                     p_y: *const Limb/*[num_limbs]*/),
 }
 
 impl PrivateKeyOps {
@@ -234,9 +236,14 @@ impl PrivateKeyOps {
     }
 
     #[inline(always)]
-    pub fn point_mul(&self, s: &Scalar, point_x_y: &(Elem, Elem))
-                     -> Result<Point, ()> {
-        (self.point_mul_impl)(s, point_x_y)
+    pub fn point_mul(&self, p_scalar: &Scalar,
+                     &(ref p_x, ref p_y): &(Elem, Elem)) -> Point {
+        let mut r = Point::new_at_infinity();
+        unsafe {
+            (self.point_mul_impl)(r.xyz.as_mut_ptr(), p_scalar.limbs.as_ptr(),
+                                  p_x.limbs.as_ptr(), p_y.limbs.as_ptr());
+        }
+        r
     }
 
     #[inline]
