@@ -55,8 +55,6 @@ pub static COMMON_OPS: CommonOps = CommonOps {
     elem_sqr_mont: ecp_nistz256_sqr_mont,
 
     point_add_jacobian_impl: ecp_nistz256_point_add,
-
-    ec_group: &EC_GROUP_P256,
 };
 
 
@@ -123,8 +121,6 @@ extern {
     fn GFp_p256_scalar_mul_mont(r: *mut Limb/*[COMMON_OPS.num_limbs]*/,
                                 a: *const Limb/*[COMMON_OPS.num_limbs]*/,
                                 b: *const Limb/*[COMMON_OPS.num_limbs]*/);
-
-    static EC_GROUP_P256: EC_GROUP;
 }
 
 
