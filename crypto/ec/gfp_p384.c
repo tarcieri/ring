@@ -19,6 +19,12 @@
 #include "../bn/internal.h"
 #include "../internal.h"
 
+#include "gfp_limbs.inl"
+
+ /* XXX: Here we assume that the conversion from |GFp_Carry| to |GFp_Limb|
+  * is constant-time, but we haven't verified that assumption. TODO: Fix it so
+  * we don't need to make that assumption. */
+
 
 typedef GFp_Limb Elem[P384_LIMBS];
 typedef GFp_Limb ScalarMont[P384_LIMBS];
