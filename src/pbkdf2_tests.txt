@@ -21,21 +21,19 @@ S = "salt"
 c = 4096
 DK = c5e478d59288c841aa530db6845c4c8d962893a001ce4e11a4963873aa98134a
 
-# Skipped because we panic if the output length requested is larger than the
-# digest block size.
+# Skipped because of the large number of iterations and the amount of time
+# it would add to the test suite.
 # Hash = SHA256
 # P = "password"
 # S = "salt"
 # c = 16777216
 # DK = cf81c66fe8cfc04d1f31ecb65dab4089f7f179e89b3b0bcb17ad10e3ac6eba46
 
-# Skipped because we panic if the output length requested is larger than the
-# digest block size.
-# Hash = SHA256
-# P = "passwordPASSWORDpassword"
-# S = "saltSALTsaltSALTsaltSALTsaltSALTsalt"
-# c = 4096
-# DK = 348c89dbcbd32b2f32d814b8116e84cf2b17347ebc1800181c4e2a1fb8dd53e1c635518c7dac47e9
+Hash = SHA256
+P = "passwordPASSWORDpassword"
+S = "saltSALTsaltSALTsaltSALTsaltSALTsalt"
+c = 4096
+DK = 348c89dbcbd32b2f32d814b8116e84cf2b17347ebc1800181c4e2a1fb8dd53e1c635518c7dac47e9
 
 # P is "pass\0word" S is "sa\0lt"
 Hash = SHA256
